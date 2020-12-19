@@ -79,6 +79,9 @@ for i = 1:length(multirotor.t)
     % M
     M = -kR*eR - kW*eW + vec_cross(W, multirotor.J*W);
     
+    % control input
+    control = [f; M];
+    
     % save the error
     multirotor.ex(:, i) = ex;
     multirotor.ev(:, i) = ev;
