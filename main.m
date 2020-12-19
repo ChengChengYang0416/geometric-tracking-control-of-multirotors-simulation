@@ -30,7 +30,7 @@ multirotor.R(1:9) = [1; 0; 0; 0; 1; 0 ;0 ; 0; 1];
 tra = zeros(12, length(multirotor.t));
 traj = trajectory;
 
-for i = 1:length(multirotor.t)
+for i = 2:length(multirotor.t)
     t_now = multirotor.t(i);
     
     % desired trajectory
@@ -42,10 +42,10 @@ for i = 1:length(multirotor.t)
     Wd = [0; 0; 0];
     
     % now states
-    x = multirotor.x(:, i);
-    v = multirotor.v(:, i);
-    R = reshape(multirotor.R(:, i), 3, 3);
-    W = multirotor.W(:, i);
+    x = multirotor.x(:, i-1);
+    v = multirotor.v(:, i-1);
+    R = reshape(multirotor.R(:, i-1), 3, 3);
+    W = multirotor.W(:, i-1);
     e3 = multirotor.e3;
     
     % errors
@@ -53,13 +53,13 @@ for i = 1:length(multirotor.t)
     ev = v - vd;
     
     % control gains
-    kx = diag([16*multirotor.m; 16*multirotor.m; 16*multirotor.m]);
-    kv = diag([5.6*multirotor.m; 5.6*multirotor.m; 5.6*multirotor.m]);
-    kR = 8.81;
-    kW = 2.54;
+    kx = diag([78; 78; 78]);
+    kv = diag([22; 22; 22]);
+    kR = 150;
+    kW = 2.6;
     
     % f
-    A = (-kx*ex - kv*ev + multirotor.m*ad + multirotor.m*multirotor.g*multirotor.e3);
+    A = (-kx*ex - kv*ev + multirotor.m*ad + multirotor.m*multirotor.g*e3);
     b3 = R*e3;
     f = vec_dot(A, b3);
     
@@ -82,6 +82,14 @@ for i = 1:length(multirotor.t)
     % control input
     control = [f; M];
     
+    % dynamics
+    X0 = [x; v; reshape(R, 9, 1); W];
+    [T, X_new] = ode45(@(t, x) multirotor.dynamics(t, x, control), [0, dt], X0, control);
+    multirotor.x(:, i) = X_new(end, 1:3);
+    multirotor.v(:, i) = X_new(end, 4:6);
+    multirotor.R(:, i) = X_new(end, 7:15);
+    multirotor.W(:, i) = X_new(end, 16:18);
+    
     % save the error
     multirotor.ex(:, i) = ex;
     multirotor.ev(:, i) = ev;
@@ -92,7 +100,14 @@ end
 figure(1)
 subplot(3, 1, 1)
 plot(multirotor.t, tra(1, :))
+hold on
+plot(multirotor.t, multirotor.x(1, :))
 subplot(3, 1, 2)
 plot(multirotor.t, tra(2, :))
+hold on
+plot(multirotor.t, multirotor.x(2, :))
 subplot(3, 1, 3)
 plot(multirotor.t, tra(3, :))
+hold on
+plot(multirotor.t, multirotor.x(3, :))
+
