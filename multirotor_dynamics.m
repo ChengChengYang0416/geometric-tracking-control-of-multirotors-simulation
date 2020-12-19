@@ -11,7 +11,7 @@ classdef multirotor_dynamics
     end
     methods
         function Dynamics = dynamics(obj)
-            Dynamics = obj.mass;
+            Dynamics = obj.m;
         end
     end
 end
