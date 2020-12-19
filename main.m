@@ -39,6 +39,7 @@ for i = 1:length(multirotor.t)
     vd = tra(4:6, i);
     ad = tra(7:9, i);
     b1d = tra(10:12, i);
+    Wd = [0; 0; 0];
     
     % now states
     x = multirotor.x(:, i);
@@ -57,20 +58,32 @@ for i = 1:length(multirotor.t)
     kR = 8.81;
     kW = 2.54;
     
-    % calculate f and Rd
+    % f
     A = (-kx*ex - kv*ev + multirotor.m*ad + multirotor.m*multirotor.g*multirotor.e3);
     b3 = R*e3;
-    f = vec_dot(A,b3);
+    f = vec_dot(A, b3);
+    
+    % Rd
     norm_A = norm(A);
     b3d = A/norm_A;
     b2d = vec_cross(b3d, b1d);
     norm_b2d = norm(b2d);
     b2d = b2d/norm_b2d;
-    b1d = vec_cross(b2d, b3d);
-    Rd = [b1d b2d b3d]; 
+    b1d_proj = vec_cross(b2d, b3d);
+    Rd = [b1d_proj b2d b3d];
     
+    % eR and eW
+    eR = 1/2*vee_map(Rd'*R - R'*Rd);
+    eW = W - R'*Rd*Wd;
+    
+    % M
+    M = -kR*eR - kW*eW + vec_cross(W, multirotor.J*W);
+    
+    % save the error
     multirotor.ex(:, i) = ex;
     multirotor.ev(:, i) = ev;
+    multirotor.eR(:, i) = eR;
+    multirotor.eW(:, i) = eW;
 end
 
 figure(1)
