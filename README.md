@@ -6,4 +6,4 @@ A simulation for geometric tracking control of multirotors.
 2. [Geometry-Toolbox](https://github.com/sir-avinash/geometry-toolbox)
 
 ## Usage
-	Run main.m
+Run main.m
