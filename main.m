@@ -110,4 +110,3 @@ subplot(3, 1, 3)
 plot(multirotor.t, tra(3, :))
 hold on
 plot(multirotor.t, multirotor.x(3, :))
-
