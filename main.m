@@ -99,24 +99,24 @@ end
 
 figure(1)
 subplot(3, 1, 1)
-plot(multirotor.t, tra(1, :))
-hold on
 plot(multirotor.t, multirotor.x(1, :))
+hold on
+plot(multirotor.t, tra(1, :))
 y = ylabel('X(m)', 'rotation', 0);
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 legend('$X$', '$X_{d}$' , 'Interpreter', 'latex')
 title('Trajectory and Desired Trajectory (m)')
 subplot(3, 1, 2)
-plot(multirotor.t, tra(2, :))
-hold on
 plot(multirotor.t, multirotor.x(2, :))
+hold on
+plot(multirotor.t, tra(2, :))
 y = ylabel('Y(m)', 'rotation', 0);
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 legend('$Y$', '$Y_{d}$' , 'Interpreter', 'latex')
 subplot(3, 1, 3)
-plot(multirotor.t, tra(3, :))
-hold on
 plot(multirotor.t, multirotor.x(3, :))
+hold on
+plot(multirotor.t, tra(3, :))
 y = ylabel('Z(m)', 'rotation', 0);
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 legend('$Z$', '$Z_{d}$' , 'Interpreter', 'latex')
