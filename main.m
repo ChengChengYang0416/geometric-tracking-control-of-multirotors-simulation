@@ -53,8 +53,8 @@ for i = 2:length(multirotor.t)
     ev = v - vd;
     
     % control gains
-    kx = diag([78; 78; 78]);
-    kv = diag([22; 22; 22]);
+    kx = diag([16*multirotor.m; 16*multirotor.m; 16*multirotor.m]);
+    kv = diag([5.6*multirotor.m; 5.6*multirotor.m; 5.6*multirotor.m]);
     kR = 150;
     kW = 2.54;
     
