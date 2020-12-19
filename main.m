@@ -35,9 +35,9 @@ for i = 2:length(multirotor.t)
     
     % desired trajectory
     tra(:, i) = traj.traj_generate(t_now);
-    xd = tra(1:3, i);
-    vd = tra(4:6, i);
-    ad = tra(7:9, i);
+    xd = tra(1:3, i-1);
+    vd = tra(4:6, i-1);
+    ad = tra(7:9, i-1);
     b1d = tra(10:12, i);
     Wd = [0; 0; 0];
     
