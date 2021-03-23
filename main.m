@@ -121,3 +121,67 @@ y = ylabel('$Z(m)$', 'rotation', 0, 'Interpreter', 'latex');
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 legend('$Z$', '$Z_{d}$' , 'Interpreter', 'latex')
 xlabel('$Time(sec)$', 'Interpreter', 'latex')
+
+figure(2)
+subplot(3, 1, 1)
+plot(multirotor.t, multirotor.ex(1, :))
+y = ylabel('$e_{p_{x}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+title('$Position$ $Error$ $(m)$', 'Interpreter', 'latex')
+subplot(3, 1, 2)
+plot(multirotor.t, multirotor.ex(2, :))
+y = ylabel('$e_{p_{y}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+subplot(3, 1, 3)
+plot(multirotor.t, multirotor.ex(3, :))
+y = ylabel('$e_{p_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+xlabel('$Time(sec)$', 'Interpreter', 'latex')
+
+figure(3)
+subplot(3, 1, 1)
+plot(multirotor.t, multirotor.ev(1, :))
+y = ylabel('$e_{v_{x}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+title('$Velocity$ $Error$ $(m/s)$', 'Interpreter', 'latex')
+subplot(3, 1, 2)
+plot(multirotor.t, multirotor.ev(2, :))
+y = ylabel('$e_{v_{y}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+subplot(3, 1, 3)
+plot(multirotor.t, multirotor.ev(3, :))
+y = ylabel('$e_{v_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+xlabel('$Time(sec)$', 'Interpreter', 'latex')
+
+figure(4)
+subplot(3, 1, 1)
+plot(multirotor.t, multirotor.eR(1, :))
+y = ylabel('$e_{R_{x}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+title('$Attitude$ $Error$ $(rad)$', 'Interpreter', 'latex')
+subplot(3, 1, 2)
+plot(multirotor.t, multirotor.eR(2, :))
+y = ylabel('$e_{R_{y}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+subplot(3, 1, 3)
+plot(multirotor.t, multirotor.eR(3, :))
+y = ylabel('$e_{R_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+xlabel('$Time(sec)$', 'Interpreter', 'latex')
+
+figure(5)
+subplot(3, 1, 1)
+plot(multirotor.t, multirotor.eW(1, :))
+y = ylabel('$e_{\Omega_{x}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+title('$Angular$ $Velocity$ $Error$ $(rad/s)$', 'Interpreter', 'latex')
+subplot(3, 1, 2)
+plot(multirotor.t, multirotor.eW(2, :))
+y = ylabel('$e_{\Omega_{y}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+subplot(3, 1, 3)
+plot(multirotor.t, multirotor.eW(3, :))
+y = ylabel('$e_{\Omega_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+xlabel('$Time(sec)$', 'Interpreter', 'latex')
