@@ -97,6 +97,7 @@ for i = 2:length(multirotor.t)
     multirotor.eW(:, i) = eW;
 end
 
+% plot trajectory and desired trajectory
 figure(1)
 subplot(3, 1, 1)
 plot(multirotor.t, multirotor.x(1, :))
@@ -122,6 +123,7 @@ set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 legend('$Z$', '$Z_{d}$' , 'Interpreter', 'latex')
 xlabel('$Time(sec)$', 'Interpreter', 'latex')
 
+% plot position error
 figure(2)
 subplot(3, 1, 1)
 plot(multirotor.t, multirotor.ex(1, :))
@@ -138,6 +140,7 @@ y = ylabel('$e_{p_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 xlabel('$Time(sec)$', 'Interpreter', 'latex')
 
+% plot velocity error
 figure(3)
 subplot(3, 1, 1)
 plot(multirotor.t, multirotor.ev(1, :))
@@ -154,6 +157,7 @@ y = ylabel('$e_{v_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 xlabel('$Time(sec)$', 'Interpreter', 'latex')
 
+% plot attitude error
 figure(4)
 subplot(3, 1, 1)
 plot(multirotor.t, multirotor.eR(1, :))
@@ -170,6 +174,7 @@ y = ylabel('$e_{R_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 xlabel('$Time(sec)$', 'Interpreter', 'latex')
 
+% plot angular velocity error
 figure(5)
 subplot(3, 1, 1)
 plot(multirotor.t, multirotor.eW(1, :))
