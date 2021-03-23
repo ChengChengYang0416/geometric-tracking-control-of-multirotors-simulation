@@ -38,9 +38,11 @@ for i = 2:length(multirotor.t)
 
     % desired trajectory
     tra(:, i) = traj.traj_generate(t_now);
+    Xd = tra(1:9, i-1);
+    b1d = tra(10:12, i);
 
     % control input and error
-    [control, error] = ctrl.geometric_tracking_ctrl(i, multirotor, tra);
+    [control, error] = ctrl.geometric_tracking_ctrl(i, multirotor, Xd, b1d);
 
     % dynamics
     X0 = [multirotor.x(:, i-1);

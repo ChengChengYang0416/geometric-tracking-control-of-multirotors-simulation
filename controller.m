@@ -1,14 +1,13 @@
 classdef controller
    methods
-       function [control, error] = geometric_tracking_ctrl(obj, iter, multirotor, tra)
+       function [control, error] = geometric_tracking_ctrl(obj, iter, multirotor, Xd, b1d)
            % f, M
            control = zeros(16, 1);
            
            % xd, vd, ad, b1d, Wd
-           xd = tra(1:3, iter-1);
-           vd = tra(4:6, iter-1);
-           ad = tra(7:9, iter-1);
-           b1d = tra(10:12, iter);
+           xd = Xd(1:3, 1);
+           vd = Xd(4:6, 1);
+           ad = Xd(7:9, 1);
            Wd = [0; 0; 0];
            
            % now states
