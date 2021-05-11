@@ -35,7 +35,7 @@ classdef multirotor_dynamics
             M = F(2:4);
             
             dx = X(4:6);
-            dv = -obj.g*obj.e3 + (f/obj.m)*R_now*obj.e3;
+            dv = obj.g*obj.e3 - (f/obj.m)*R_now*obj.e3;
             dR = R_now*hat_map(W_now);
             dW = obj.J\(-vec_cross(W_now, obj.J*W_now) + M);
             
