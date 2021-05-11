@@ -38,20 +38,20 @@ for i = 2:length(multirotor.t)
 
     % desired trajectory
     tra(:, i) = traj.traj_generate(t_now);
-    Xd = tra(1:9, i-1);
+    Xd_enu = tra(1:9, i-1);
     b1d = tra(10:12, i);
 
     % control input and error
-    [control, error] = ctrl.geometric_tracking_ctrl(i, multirotor, Xd, b1d);
+    [control, error] = ctrl.geometric_tracking_ctrl(i, multirotor, Xd_enu, b1d);
 
     % dynamics
-    X0 = [multirotor.x(:, i-1);
-        multirotor.v(:, i-1);
+    X0 = [vec_enu_to_ned(multirotor.x(:, i-1));
+        vec_enu_to_ned(multirotor.v(:, i-1));
         reshape(reshape(multirotor.R(:, i-1), 3, 3), 9, 1);
         multirotor.W(:, i-1)];
     [T, X_new] = ode45(@(t, x) multirotor.dynamics(t, x, control), [0, dt], X0, control);
-    multirotor.x(:, i) = X_new(end, 1:3);
-    multirotor.v(:, i) = X_new(end, 4:6);
+    multirotor.x(:, i) = vec_ned_to_enu(X_new(end, 1:3));
+    multirotor.v(:, i) = vec_ned_to_enu(X_new(end, 4:6));
     multirotor.R(:, i) = X_new(end, 7:15);
     multirotor.W(:, i) = X_new(end, 16:18);
 
