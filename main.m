@@ -26,9 +26,14 @@ multirotor.ex = zeros(3, length(multirotor.t));
 multirotor.ev = zeros(3, length(multirotor.t));
 multirotor.eR = zeros(3, length(multirotor.t));
 multirotor.eW = zeros(3, length(multirotor.t));
-multirotor.R(1:9) = [1; 0; 0; 0; 1; 0 ;0 ; 0; 1];
 multirotor.force_moment = zeros(4, length(multirotor.t));
 multirotor.rotor_thrust = zeros(4, length(multirotor.t));
+
+% initialize states
+multirotor.x(:, 1) = [0; 0; 0];
+multirotor.v(:, 1) = [0; 0; 0];
+multirotor.R(:, 1) = [1; 0; 0; 0; 1; 0; 0; 0; 1];
+multirotor.W(:, 1) = [0; 0; 0];
 
 % initialize controller
 ctrl = controller;
