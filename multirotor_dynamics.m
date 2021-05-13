@@ -11,6 +11,8 @@ classdef multirotor_dynamics
         d
         c_tau
         g = 9.81;
+        allocation_matrix
+        allocation_matrix_inv
         % unit vector
         e1 = [1; 0; 0];
         e2 = [0; 1; 0];
@@ -25,6 +27,9 @@ classdef multirotor_dynamics
         ev
         eR
         eW
+        % control input
+        force_moment
+        rotor_thrust
     end
     methods
         function dX = dynamics(obj, t, X, F)

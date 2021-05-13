@@ -16,6 +16,8 @@ multirotor.J = [0.0820, 0, 0;
                 0, 0, 0.1377];
 multirotor.d = 0.315;
 multirotor.c_tau = 8.004e-4;
+multirotor.allocation_matrix = cal_allocation_matrix(multirotor.d, multirotor.c_tau);
+multirotor.allocation_matrix_inv = cal_allocation_matrix_inv(multirotor.allocation_matrix);
 multirotor.x = zeros(3, length(multirotor.t));
 multirotor.v = zeros(3, length(multirotor.t));
 multirotor.R = zeros(9, length(multirotor.t));
@@ -25,6 +27,8 @@ multirotor.ev = zeros(3, length(multirotor.t));
 multirotor.eR = zeros(3, length(multirotor.t));
 multirotor.eW = zeros(3, length(multirotor.t));
 multirotor.R(1:9) = [1; 0; 0; 0; 1; 0 ;0 ; 0; 1];
+multirotor.force_moment = zeros(4, length(multirotor.t));
+multirotor.rotor_thrust = zeros(4, length(multirotor.t));
 
 % initialize controller
 ctrl = controller;
@@ -60,6 +64,10 @@ for i = 2:length(multirotor.t)
     multirotor.ev(:, i) = error(4:6);
     multirotor.eR(:, i) = error(7:9);
     multirotor.eW(:, i) = error(10:12);
+    
+    % save rotor thrust
+    multirotor.force_moment(:, i) = control(1:4);
+    multirotor.rotor_thrust(:, i) = multirotor.allocation_matrix_inv*control(1:4);
 end
 
 % plot trajectory and desired trajectory
@@ -155,3 +163,29 @@ plot(multirotor.t, multirotor.eW(3, :))
 y = ylabel('$e_{\Omega_{z}}$', 'rotation', 0, 'Interpreter', 'latex');
 set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
 xlabel('$Time(sec)$', 'Interpreter', 'latex')
+
+figure(6)
+plot(multirotor.t, multirotor.rotor_thrust(1, :))
+hold on
+plot(multirotor.t, multirotor.rotor_thrust(2, :))
+hold on
+plot(multirotor.t, multirotor.rotor_thrust(3, :))
+hold on
+plot(multirotor.t, multirotor.rotor_thrust(4, :))
+y = ylabel('$f$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+xlabel('$Time(sec)$', 'Interpreter', 'latex')
+legend('$f_{1}$', '$f_{2}$', '$f_{3}$', '$f_{4}$', 'Interpreter', 'latex')
+title('$Rotor$ $Thrust$ $(N)$', 'Interpreter', 'latex')
+
+figure(7)
+plot(multirotor.t, multirotor.force_moment(2, :))
+hold on
+plot(multirotor.t, multirotor.force_moment(3, :))
+hold on
+plot(multirotor.t, multirotor.force_moment(4, :))
+y = ylabel('$M$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+xlabel('$Time(sec)$', 'Interpreter', 'latex')
+legend('$M_{x}$', '$M_{y}$', '$M_{z}$', 'Interpreter', 'latex')
+title('$Moment$ $Control$ $input$ $(N\cdot m)$', 'Interpreter', 'latex')
