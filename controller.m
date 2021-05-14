@@ -2,7 +2,7 @@ classdef controller
    methods
        function [control, error] = geometric_tracking_ctrl(obj, iter, multirotor, Xd_enu, b1d)
            % f, M
-           control = zeros(16, 1);
+           control = zeros(4, 1);
            
            % xd, vd, ad, b1d, Wd
            xd_enu = Xd_enu(1:3, 1);
