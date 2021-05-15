@@ -184,6 +184,13 @@ legend('$f_{1}$', '$f_{2}$', '$f_{3}$', '$f_{4}$', 'Interpreter', 'latex')
 title('$Rotor$ $Thrust$ $(N)$', 'Interpreter', 'latex')
 
 figure(7)
+subplot(211)
+plot(multirotor.t, multirotor.force_moment(1, :))
+y = ylabel('$f$', 'rotation', 0, 'Interpreter', 'latex');
+set(y, 'Units', 'Normalized', 'Position', [-0.09, 0.41])
+title('$Total$ $thrust$ $(N)$', 'Interpreter', 'latex')
+
+subplot(212)
 plot(multirotor.t, multirotor.force_moment(2, :))
 hold on
 plot(multirotor.t, multirotor.force_moment(3, :))
