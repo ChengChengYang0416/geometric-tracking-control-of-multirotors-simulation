@@ -2,8 +2,8 @@
 close all;
 
 % simulation time
-dt = 0.01;
-sim_t = 10;
+dt = 0.001;
+sim_t = 20;
 
 % initialize parameters
 multirotor = multirotor_dynamics;
